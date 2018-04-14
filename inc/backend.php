@@ -3,9 +3,9 @@ function Rig_add_menu(){
 
     $vip_main=add_menu_page('فرم استخدامی ','فرم استخدامی ','manage_options','Rig_mine','Rig_dashboard_page');
 
+       add_action("load-{$vip_main}","load_vip_scripts");
 
-add_action("load-{$vip_main}","load_vip_scripts");
-    }
+ }
  function load_vip_scripts()
  {
      wp_register_style('bootstrap',RIG_CSS_URL.'bootstrap.css');
@@ -22,6 +22,6 @@ add_action("load-{$vip_main}","load_vip_scripts");
 
      wp_register_script('myapp',RIG_JS_URL.'myapp.js');
      wp_enqueue_script('myapp');
-
      //wp_localize_script('vip_admin_script','wpvip',array('ajaxurl'=>admin_url('admin-ajax.php')));
  }
+

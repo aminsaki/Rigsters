@@ -1,30 +1,35 @@
 <?php
 function Rig_dashboard_page()
-{?>
-   <table class="table table-responsive table-bordered">
-        <thead>
-           <tr>
-               <th>ردیف</th>
-               <th>نام و نام خانوادگی</th>
-               <th>عملیات</th>
-           </tr>
-        </thead>
-        <tbody>
-        <?php
-        global $wpdb;
-        $users= $wpdb->get_results("SELECT * FROM `wp-rigster`");
-//        $wpdb->show_errors();
-//        $wpdb->print_error();
-       $i=1;
-        foreach($users as $user):
-        ?>
-          <tr>
-              <td><?= $i++;?></td>
-              <td><?= $user->usersname; ?></td>
-              <td><a href="#" id="Rig_delete_id" data-id="<?php echo $user->id;?>"  class="btn btn-danger">Delete</a> </td>
-          </tr>
-          <?php endforeach;?>
-        </tbody>
+ {
+   if(! current_user_can('manage_options'))
+   {
+       wp_die('متاسفانه شما اجازه‌ی بازدید از این صفحه را ندارید. ');
+   }
+      config_url_rigster();
 
-   </table>
-<?php }?>
+ }
+
+function config_url_rigster()
+{
+     if(!empty($_POST)):
+
+        $post_method= $_POST['rigsters'];
+
+      switch ($post_method){
+
+          case 'edit_rigster':
+               include RIG_INCAD_DIR . "edit_rigsterus.php";
+          break;
+          default:
+//              include  RIG_INCAD_DIR ."show_rigsterus.php";
+              include RIG_INCAD_DIR . "edit_rigsterus.php";
+
+              break;
+      }
+     else:
+         include RIG_INCAD_DIR . "edit_rigsterus.php";
+
+//       include  RIG_INCAD_DIR ."show_rigsterus.php";
+     endif; #endif isset $_Get
+}
+?>

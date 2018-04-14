@@ -24,4 +24,5 @@ jQuery(document).ready(function($){
          return false;
 
   });///end Rig_delete_id
+
  });///end document
